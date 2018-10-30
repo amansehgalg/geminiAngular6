@@ -1,0 +1,89 @@
+<mat-card style="width: 90%;margin:auto; overflow-y: auto">
+  <form class="example-form">
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="Query"  [(ngModel)]="query" name="query" >
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="Date" [(ngModel)]="startdate" name="startdate">
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="End Date" [(ngModel)]="enddate" name="enddate">
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="Event" [(ngModel)]="event" name="event">
+    </mat-form-field>
+
+    <button (click)="connectDB()" mat-raised-button color="primary" style="margin-left: 20px">{{btnVal}}</button>
+    <button *ngIf="isAvailData" (click)="isshowtable=!isshowtable" mat-raised-button color="primary" style="margin-left: 20px">
+      <span *ngIf="isshowtable">Show Table</span>
+      <span *ngIf="!isshowtable">Show Chart</span>
+    </button>
+  </form>
+  <h4>{{newCreateQuery}}</h4>
+</mat-card>
+<!--<mat-card style="border: 2px solid #5a807d;width: 100%;margin-left: 100px">-->
+
+  <!--<table mat-table [dataSource]="searchedData" class="mat-elevation-z8">-->
+  <!--<ng-container [matColumnDef]="column" *ngFor="let column of datakeys">-->
+    <!--<th mat-header-cell *matHeaderCellDef> {{column}} </th>-->
+    <!--<td mat-cell *matCellDef="let element"> {{element[column]}} </td>-->
+  <!--</ng-container>-->
+
+  <!--<tr mat-header-row *matHeaderRowDef="datakeys"></tr>-->
+  <!--<tr mat-row *matRowDef="let row; columns: datakeys;"></tr>-->
+<!--</table>-->
+
+
+
+  <mat-card *ngIf="isAvailData && isshowtable" style="width: 90%;margin:auto; overflow-y: auto">
+
+      <table border="1">
+        <tr>
+          <th style="width:200px;padding:5px;"  *ngFor="let k of datakeys">{{k}}</th>
+        </tr>
+        <tr *ngFor="let d of searchedData">
+          <td style="width:200px;padding:5px;" *ngFor=" let x of datakeys">{{d[x]}}</td>
+        </tr>
+      </table>
+    </mat-card>
+
+<!---
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef> Name </th>
+      <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+    </ng-container>
+
+
+    <ng-container matColumnDef="weight">
+      <th mat-header-cell *matHeaderCellDef> Weight </th>
+      <td mat-cell *matCellDef="let element"> {{element.weight}} </td>
+    </ng-container>
+
+
+    <ng-container matColumnDef="symbol">
+      <th mat-header-cell *matHeaderCellDef> Symbol </th>
+      <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
+    </ng-container>--->
+
+    <!--<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>-->
+    <!--<tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>-->
+  <!--</table>-->
+
+<!--</mat-card>-->
+
+
+<mat-card *ngIf="isAvailData && !isshowtable" style="height: 100%;width: 100%;">
+
+  <mat-card style="width: 40%;margin-left: 50px;margin-top: 10px;float: left;height: 60%">
+    <nvd3 [options]="options2" [data]="dataPieArray"></nvd3>
+  </mat-card>
+
+  <mat-card style="width: 40%;margin-left: 50px;margin-top: 10px;float: left;height: 60%">
+    <nvd3 [options]="options3" [data]="bardataArr"></nvd3>
+  </mat-card>
+
+</mat-card>
+
